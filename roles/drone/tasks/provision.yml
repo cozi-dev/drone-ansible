@@ -1,0 +1,36 @@
+---
+- name: Install certbot
+  git:
+    force: yes
+    repo: https://github.com/certbot/certbot
+    dest: /opt/letsencrypt
+
+- name: Install required system packages
+  apt: name={{ item }} state=latest update_cache=yes
+  loop: [ 'python3-pip', 'nginx' ]      
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/debian stretch stable
+    state: present
+
+- name: Update apt and install docker-ce
+  apt: update_cache=yes name=docker-ce state=latest
+
+- name: Install docker-compose
+  pip:
+    name: docker-compose
+
+- name: Make sure drone env directory exists
+    file: path=/etc/drone state=directory
+  
+- name: Copy drone server env
+  template: src=../templates/server.env.j2 dest=/etc/drone/server.env
+
+- name: Copy drone agent env
+  template: src=../templates/agent.env.j2 dest=/etc/drone/agent.env

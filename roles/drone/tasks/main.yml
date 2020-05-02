@@ -1,0 +1,5 @@
+---
+- include: provision.yml
+- include: cert.yml
+- include: nginx.yml
+- include: start_drone.yml

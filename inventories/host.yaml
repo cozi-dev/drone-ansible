@@ -1,0 +1,6 @@
+drone:
+  hosts:
+    {{ YOUR_SERVER_IP_ADDRESS }}
+
+  vars:
+    ansible_python_interpreter: /usr/bin/python3

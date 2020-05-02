@@ -1,0 +1,27 @@
+---
+- name: Start drone docker compose
+  docker_compose:
+    project_name: drone
+    definition:
+      version: '3'
+      services:
+        server:
+          image: drone/drone:1.7.0
+          restart: always
+          ports:
+            - "8000:80"
+          volumes:
+            - /var/lib/drone:/var/lib/drone/
+          env_file:
+            - /etc/drone/server.env
+        agent:
+          image: drone/agent:1.6.2
+          restart: always
+          command: agent
+          depends_on:
+            - server
+          volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+          env_file:
+            - /etc/drone/agent.env
+  tags: drone

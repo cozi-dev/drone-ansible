@@ -1,0 +1,5 @@
+---
+- name: copy nginx config
+  template: src=../templates/nginx.j2 dest=/etc/nginx/sites-enabled/{{ project_name }}.conf
+  notify:
+    - restart nginx

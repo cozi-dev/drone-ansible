@@ -1,0 +1,10 @@
+---
+- name: Check existing key
+  stat: path=/etc/letsencrypt/live/{{ server_name }}/privkey.pem
+  register: key_file
+  tags: cert
+
+- name: Ask for a certificate from Lets Encrypt
+  shell: "/opt/letsencrypt/certbot-auto certonly --agree-tos --non-interactive --nginx --redirect --cert-name {{ server_name }} -d {{ server_name }} --email {{ admin_email }}"
+  when: key_file.stat.islnk is not defined
+  tags: cert
