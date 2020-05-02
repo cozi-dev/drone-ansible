@@ -1,18 +1,18 @@
 ---
-  - hosts: drone
-    remote_user: root
-    become: yes
-    gather_facts: no
+- hosts: drone
+  remote_user: root
+  become: yes
+  gather_facts: no
 
-    vars:
-      project_name: drone
-      server_name: {{ YOUR_DOMAIN }}
-      admin_email: {{ YOUR_EMAIL }}
-      drone_rpc_secret: {{ YOUR_DRONE_RPC_SECRET }}
-      drone_admin_user: {{ YOUR_DRONE_ADMIN_USER }}
-      drone_github_client_id: {{ YOUR_DRONE_GITHUB_CLIENT_ID }}
-      drone_github_client_secret: {{ YOUR_DRONE_GITHUB_CLIENT_SECRET }}
-  
-    roles: 
-      - role: ./roles/drone
+  vars:
+    project_name: drone
+    server_name: {{ YOUR_DOMAIN }}
+    admin_email: {{ YOUR_EMAIL }}
+    drone_rpc_secret: {{ YOUR_DRONE_RPC_SECRET }}
+    drone_admin_user: {{ YOUR_DRONE_ADMIN_USER }}
+    drone_github_client_id: {{ YOUR_DRONE_GITHUB_CLIENT_ID }}
+    drone_github_client_secret: {{ YOUR_DRONE_GITHUB_CLIENT_SECRET }}
+
+  roles: 
+    - role: ./roles/drone
       
